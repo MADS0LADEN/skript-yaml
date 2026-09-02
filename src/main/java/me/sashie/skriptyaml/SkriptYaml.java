@@ -5,8 +5,10 @@ import ch.njol.skript.SkriptAPIException;
 import ch.njol.skript.SkriptAddon;
 import me.sashie.skriptyaml.api.ConstructedClass;
 import me.sashie.skriptyaml.api.RepresentedClass;
+import me.sashie.skriptyaml.utils.FoliaScheduler;
 import me.sashie.skriptyaml.utils.SkriptYamlUtils;
 import me.sashie.skriptyaml.utils.UpdateChecker;
+import me.sashie.skriptyaml.utils.Utilities;
 import me.sashie.skriptyaml.utils.versions.*;
 import me.sashie.skriptyaml.utils.yaml.SkriptYamlConstructor;
 import me.sashie.skriptyaml.utils.yaml.SkriptYamlRepresenter;
@@ -146,6 +148,9 @@ public class SkriptYaml extends JavaPlugin {
 						}
 					}));
 			new UpdateChecker(this);
+			if (FoliaScheduler.isRegionized()) {
+				Utilities.log("&7Detected a regionized server (Folia/CanvasMC); using Folia schedulers");
+			}
 		} else {
 			Bukkit.getPluginManager().disablePlugin(this);
 			error("Skript not found, plugin disabled.");

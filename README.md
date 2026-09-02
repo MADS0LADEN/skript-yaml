@@ -3,6 +3,10 @@ The proper way to do yaml in skript
 
 Rather then checking the file each time this addon caches the yaml file to memory
 
+## Compatibility
+
+Works on Paper, Folia, and CanvasMC. Folia and CanvasMC only load plugins that declare region-threading support; this addon sets `folia-supported: true` and uses Folia's async/region/global schedulers instead of `Bukkit.getScheduler()` on those platforms. CanvasMC is a Folia fork, so the Folia flag is enough — `canvas-supported` is only for plugins that need Canvas-only API.
+
 ## Contents
 
 Effects
