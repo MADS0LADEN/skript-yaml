@@ -8,6 +8,7 @@ import java.util.concurrent.locks.ReentrantLock;
 import javax.annotation.Nullable;
 
 import ch.njol.skript.effects.Delay;
+import me.sashie.skriptyaml.utils.FoliaScheduler;
 import org.bukkit.event.Event;
 
 import ch.njol.skript.lang.TriggerItem;
@@ -37,14 +38,19 @@ public abstract class AsyncEffect extends Delay {
 		      if (err != null) {
 		          err.printStackTrace();
 		      }
-		      SKRIPT_EXECUTION.lock();
-				try {
-					if (getNext() != null) {
-						walk(getNext(), e);
+			FoliaScheduler.runSync(SkriptYaml.getInstance(), e, new Runnable() {
+				@Override
+				public void run() {
+					SKRIPT_EXECUTION.lock();
+					try {
+						if (getNext() != null) {
+							walk(getNext(), e);
+						}
+					} finally {
+						SKRIPT_EXECUTION.unlock();
 					}
-				} finally {
-					SKRIPT_EXECUTION.unlock();
 				}
+			});
 		});
 		return null;
 	}

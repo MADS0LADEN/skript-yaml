@@ -6,7 +6,7 @@
 
     <groupId>skript-yaml</groupId>
     <artifactId>skript-yaml</artifactId>
-    <version>1.7.2</version>
+    <version>1.7.3</version>
     <packaging>jar</packaging>
 
     <name>Skript Yaml</name>
@@ -102,7 +102,7 @@
         <dependency>
             <groupId>org.bstats</groupId>
             <artifactId>bstats-bukkit</artifactId>
-            <version>3.0.2</version>
+            <version>3.2.1</version>
             <scope>compile</scope>
         </dependency>
         <dependency>

@@ -1,12 +1,12 @@
 package me.sashie.skriptyaml;
 
-import ch.njol.skript.Skript;
 import ch.njol.skript.effects.Delay;
 import ch.njol.skript.events.bukkit.ScriptEvent;
 import ch.njol.skript.events.bukkit.SkriptStopEvent;
 import ch.njol.skript.lang.TriggerItem;
-import org.bukkit.Bukkit;
+import me.sashie.skriptyaml.utils.FoliaScheduler;
 import org.bukkit.event.Event;
+import org.bukkit.plugin.Plugin;
 
 import javax.annotation.Nullable;
 
@@ -28,12 +28,13 @@ public abstract class AsyncEffectOld extends Delay {
 				TriggerItem.walk(getNext(), e);
 		} else {
 			SkriptYaml.getInstance().getSkriptAdapter().addDelayedEvent(e);
-			Bukkit.getScheduler().runTaskAsynchronously(Skript.getInstance(), new Runnable() {
+			Plugin plugin = SkriptYaml.getInstance();
+			FoliaScheduler.runAsync(plugin, new Runnable() {
 				@Override
 				public void run() {
 					execute(e); // Execute this effect
 					if (getNext() != null) {
-						Bukkit.getScheduler().runTask(Skript.getInstance(), new Runnable() {
+						FoliaScheduler.runSync(plugin, e, new Runnable() {
 							@Override
 							public void run() { // Walk to next item synchronously
 								TriggerItem.walk(getNext(), e);
